@@ -16,8 +16,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDatabaseConnection = new DatabaseConnection(getApplicationContext());
-        mTextView = (TextView) findViewById(R.id.textBox);
+        mTextView = (TextView) findViewById(R.id.textBox1);
+        getData();
+    }
 
+    private void createToast(String text) {
+        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
+    }
+
+    private void showMessage(String message) {
+        mTextView.setText(message);
+    }
+
+
+    private void getData() {
         Cursor data = mDatabaseConnection.getAllData();
         if (data.getCount() == 0) {
             createToast("NO DATA AVAILABLE");
@@ -27,18 +39,9 @@ public class MainActivity extends AppCompatActivity {
                 stringBuffer.append("ID :" + data.getString(0) + "\n");
                 stringBuffer.append("NAME :" + data.getString(1) + "\n");
                 stringBuffer.append("SURNAME :" + data.getString(2) + "\n");
-                stringBuffer.append("MARK :" + data.getString(3) + "\n");
+                stringBuffer.append("MARK :" + data.getString(3) + "\n \n");
             }
             showMessage(stringBuffer.toString());
         }
-
-    }
-
-    private void createToast(String text) {
-        Toast.makeText(getApplicationContext(), text, Toast.LENGTH_SHORT).show();
-    }
-
-    private void showMessage(String message) {
-        mTextView.setText( message);
     }
 }

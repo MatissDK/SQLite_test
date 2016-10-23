@@ -1,6 +1,7 @@
 package com.ottodk.sqlite_test;
 
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -15,7 +16,7 @@ public class DatabaseConnection extends SQLiteOpenHelper {
     private static final String COL_1_ID = "ID";
     private static final String COL_2_NAME = "NAME";
     private static final String COL_3_SURNANAME = "SURNAME";
-    private static final String COL_2_MARKS = "MARKS";
+    private static final String COL_4_MARKS = "MARKS";
 
     //when constructor is called = DB is created
     public DatabaseConnection(Context context) {
@@ -27,7 +28,7 @@ public class DatabaseConnection extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //executes query and creates table
-        db.execSQL("CREATE TABLE " +  TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, SURNAME TEXT," +
+        db.execSQL("CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT, SURNAME TEXT," +
                 "MARKS INTEGER)");
     }
 
@@ -35,6 +36,22 @@ public class DatabaseConnection extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXIST " + TABLE_NAME);
         onCreate(db);
+    }
+
+    public boolean insertData(String name, String surname, int mark) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_2_NAME, name);
+        contentValues.put(COL_3_SURNANAME, surname);
+        contentValues.put(COL_4_MARKS, mark);
+        long result = db.insert(TABLE_NAME, null, contentValues);
+        if (result == -1) {
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
 

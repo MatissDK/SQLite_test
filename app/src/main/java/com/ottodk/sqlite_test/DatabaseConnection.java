@@ -39,17 +39,10 @@ public class DatabaseConnection extends SQLiteOpenHelper {
     }
 
 
-    // returns boolean when update is done
-    public boolean updateData(String id, String name, String surname, int mark) {
+    //delete row according to id
+    public Integer deleteData(String id) {
         SQLiteDatabase db = getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_1_ID,id);
-        contentValues.put(COL_2_NAME,name);
-        contentValues.put(COL_3_SURNANAME,surname);
-        contentValues.put(COL_4_MARKS,mark);
-
-        long result = db.update(TABLE_NAME,contentValues,"id = ?",new String[]{ id });
-        return true;
+        return db.delete(TABLE_NAME, "id=?", new String[]{id});
     }
 
 }

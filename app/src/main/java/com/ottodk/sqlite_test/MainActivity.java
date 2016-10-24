@@ -14,15 +14,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDatabaseConnection = new DatabaseConnection(getApplicationContext());
-        update();
+        delete();
     }
 
-    private void update() {
-        boolean isUpdated = mDatabaseConnection.updateData("1", "Karlis", "KOKO", 2);
-        if (isUpdated == true) {
+    private void delete() {
+        int isDeleted = mDatabaseConnection.deleteData("10");
+        if (isDeleted > 0) {
             createToast("DONE");
         } else {
-            createToast("FAIL");
+            createToast("PROBLEM");
         }
     }
 
